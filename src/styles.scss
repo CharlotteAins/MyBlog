@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.snow.css";
+
+body {
+  background-image: url("assets/wall.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}

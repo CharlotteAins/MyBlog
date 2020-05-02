@@ -1,0 +1,10 @@
+<div class="card mb-2">
+  <div class="card-header">
+    <h2 class="text-center">{{ post.title }}</h2>
+  </div>
+  <small class="text-right">{{ post.date | date: 'dd.MM.yyyy' }}</small>
+  <small class="text-right">{{ post.author }}</small>
+  <button routerLink="/post/{{ post.id }}" class="btn btn-dark">
+    Open
+  </button>
+</div>

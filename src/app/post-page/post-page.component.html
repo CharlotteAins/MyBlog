@@ -1,0 +1,11 @@
+<div *ngIf="post$ | async as post; else loading" class="jumbotron">
+  <h1>{{ post.title }}</h1>
+  <strong class="mr-2">{{ post.author }}</strong>
+  <small>{{ post.date | date: 'medium' }}</small>
+  <quill-view-html [content]="post.text"></quill-view-html>
+  <button routerLink="/" class="btn btn-info">Home Page</button>
+</div>
+
+<ng-template #loading>
+  <div class="jumbotron text-center">Loading...</div>
+</ng-template>
