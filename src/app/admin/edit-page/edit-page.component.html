@@ -1,4 +1,4 @@
-<form class="bg-light p-3 rounded" [formGroup]="form" (ngSubmit)="submit()">
+<form class="bg-light p-3 rounded" *ngIf="form; else loading" [formGroup]="form" (ngSubmit)="submit()">
   <h2>Edit post</h2>
 
   <div class="form-group">
@@ -12,7 +12,7 @@
 
   <div class="form-group">
     <label>Text:</label>
-    <quill-editor formControlName="text"></quill-editor>
+    <quill-editor formControlName="text" trackChanges="all" [modules]="quill.modules"></quill-editor>
   </div>
 
   <div class="form-group">
@@ -24,3 +24,6 @@
 
 </form>
 
+<ng-template #loading>
+  <div class="jumbotron text-center">Loading...</div>
+</ng-template>

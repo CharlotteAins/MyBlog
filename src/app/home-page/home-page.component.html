@@ -1,4 +1,25 @@
-<div *ngIf="posts$ | async as posts; else loading">
+<div class="p-2 rounded bg-light mb-3">
+  <div class="form-group">
+    <input class="form-control form-control-lg" type="text" placeholder="filter posts" [(ngModel)]="searchStr">
+  </div>
+  <div class="d-flex align-items-center">
+  <h3>Filter by:</h3>
+  <div class="custom-control custom-radio ml-3">
+    <input (click)="searchPlace = 'title'" class="custom-control-input" type="radio" name="filter-radio" id="title" value="title" checked>
+    <label class="custom-control-label" for="title">
+      Title
+    </label>
+  </div>
+  <div class="custom-control custom-radio ml-3">
+    <input (click)="searchPlace = 'text'" class="custom-control-input" type="radio" name="filter-radio" id="text" value="text">
+    <label class="custom-control-label" for="text">
+      Text
+    </label>
+  </div>
+  </div>
+</div>
+
+<div *ngIf="posts$ | async | searchPosts:searchStr:searchPlace as posts; else loading">
   <app-post *ngFor="let post of posts" [post]="post"></app-post>
 </div>
 

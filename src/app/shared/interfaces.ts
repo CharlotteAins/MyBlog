@@ -15,9 +15,15 @@ export interface Post {
   title: string,
   text: string,
   author: string,
-  date: Date
+  date: Date,
+  comments?: Comment[]
 }
 
 export interface FbCreateResponse {
   name: string
+}
+
+export interface Comment {
+  text: string,
+  author: string
 }

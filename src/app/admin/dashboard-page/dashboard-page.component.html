@@ -1,8 +1,27 @@
 <div *ngIf="posts; else loading">
 
-  <div class="form-group">
-  <input class="form-control form-control-lg" type="text" placeholder="filter posts" [(ngModel)]="searchStr">
+  <div class="p-2 rounded bg-light mb-3">
+    <div class="form-group">
+      <input class="form-control form-control-lg" type="text" placeholder="filter posts" [(ngModel)]="searchStr">
+    </div>
+    <div class="d-flex align-items-center">
+      <h3>Filter by:</h3>
+      <div class="custom-control custom-radio ml-3">
+        <input (click)="searchPlace = 'title'" class="custom-control-input" type="radio" name="filter-radio" id="title" value="title" checked>
+        <label class="custom-control-label" for="title">
+          Title
+        </label>
+      </div>
+      <div class="custom-control custom-radio ml-3">
+        <input (click)="searchPlace = 'text'" class="custom-control-input" type="radio" name="filter-radio" id="text" value="text">
+        <label class="custom-control-label" for="text">
+          Text
+        </label>
+      </div>
+    </div>
   </div>
+
+    <a routerLink="/admin/create" class="btn bg-dark text-light">Create new Post</a>
 
   <table class="table table-striped table-dark">
     <thead>
@@ -15,7 +34,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let post of posts | searchPosts: searchStr; let idx = index">
+    <tr *ngFor="let post of posts | searchPosts:searchStr:searchPlace; let idx = index">
       <th scope="row">{{ idx + 1 }}</th>
       <td>{{ post.author }}</td>
       <td>{{ post.title }}</td>

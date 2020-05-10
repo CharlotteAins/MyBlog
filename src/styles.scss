@@ -1,9 +1,35 @@
-@import "~quill/dist/quill.core.css";
-@import "~quill/dist/quill.snow.css";
-
 body {
   background-image: url("assets/wall.jpg");
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
+}
+
+.btn-float {
+  font-weight: bold;
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  z-index: 10;
+}
+
+.arrow {
+  bottom: 110px;
+  right: 20px;
+  border-radius: 50%;
+}
+
+.down {
+  bottom: 10px;
+}
+
+.alert-float {
+  position: fixed;
+  z-index: 13;
+  width: 80%;
+}
+
+.pointer {
+  cursor: pointer;
+  outline: none;
 }

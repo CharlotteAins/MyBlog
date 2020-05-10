@@ -1,11 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {PostsService} from "../../shared/posts.service";
 import {switchMap} from "rxjs/operators";
 import {Post} from "../../shared/interfaces";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {AlertService} from "../shared/services/alert.service";
+import {QuillSettings} from "../../shared/quill.settings";
+import {QuillEditor} from "ngx-quill";
 
 @Component({
   selector: 'app-edit-page',
@@ -21,7 +23,9 @@ export class EditPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private postsService: PostsService,
-              private alertService: AlertService) {
+              private router: Router,
+              private alertService: AlertService,
+              public quill: QuillSettings) {
   }
 
   ngOnInit() {
@@ -34,7 +38,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
       this.form = new FormGroup({
         title: new FormControl(post.title, Validators.required),
         text: new FormControl(post.text, Validators.required),
-        author: new FormControl({value: localStorage.getItem('author'), disabled: true})
+        author: new FormControl({value: post.author, disabled: true})
       })
     })
   }
@@ -55,8 +59,11 @@ export class EditPageComponent implements OnInit, OnDestroy {
       }).subscribe(() => {
         this.submitted = false;
         this.alertService.success('Post edited');
+        this.router.navigate(['/admin', 'dashboard']);
+      }, () => {
+        this.submitted = true;
+        this.alertService.danger("invalid image")
       })
     }
   }
-
 }

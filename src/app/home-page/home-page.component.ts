@@ -11,6 +11,8 @@ import {PostsService} from "../shared/posts.service";
 export class HomePageComponent implements OnInit {
 
   posts$: Observable<Post[]>;
+  searchStr: string = '';
+  searchPlace: string = 'title';
 
   constructor(private postsService: PostsService) { }
 

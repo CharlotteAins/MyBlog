@@ -45,7 +45,7 @@ export class PostsService {
   }
 
   update(post: Post): Observable<Post> {
-    return this.http.patch<Post>(`${environment.FbDbUrl}/posts/${post.id}.json`, post);
+    return this.http.put<Post>(`${environment.FbDbUrl}/posts/${post.id}.json`, post);
   }
 
 }

@@ -1,9 +1,46 @@
-<div *ngIf="post$ | async as post; else loading" class="jumbotron">
-  <h1>{{ post.title }}</h1>
+<div *ngIf="post; else loading" class="bg-light rounded p-5">
+  <h1 name="top">{{ post.title }}</h1>
   <strong class="mr-2">{{ post.author }}</strong>
   <small>{{ post.date | date: 'medium' }}</small>
   <quill-view-html [content]="post.text"></quill-view-html>
-  <button routerLink="/" class="btn btn-info">Home Page</button>
+
+<div style="visibility: hidden"><a  name="bottom" >bottom</a></div>
+
+  <form class="bg-dark text-light p-3 rounded mb-3" [formGroup]="form" (ngSubmit)="addComment()">
+
+    <h3>Add comment</h3>
+
+    <div class="form-group">
+      <label for="author">Author:</label>
+      <input formControlName="author" type="text" class="form-control form-control-lg" id="author"
+             placeholder="Enter your name">
+      <div *ngIf="form.get('author').touched && form.get('author').invalid">
+        <small *ngIf="form.get('author').errors.required" class="error">You must enter your name</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Comment:</label>
+      <div class="bg-light">
+        <quill-editor formControlName="comment" [modules]="quill.modules"></quill-editor>
+      </div>
+    </div>
+
+    <button [disabled]="form.invalid || submitted" type="submit" class="btn btn-success">Submit</button>
+  </form>
+
+  <ul *ngIf="post.comments" class="list-group">
+    <li *ngFor="let comment of post.comments" class="list-group-item">
+      <div class="card">
+        <div class="card-header">{{ comment.author }}</div>
+        <quill-view-html [content]="comment.text"></quill-view-html>
+      </div>
+    </li>
+  </ul>
+
+  <a href="/post/{{post.id}}#top" class="btn btn-light btn-float arrow">&#8743;</a>
+  <button routerLink="/" class="btn btn-warning btn-float">Back</button>
+  <a href="/post/{{post.id}}#bottom" class="btn btn-light btn-float arrow down">&#8744;</a>
 </div>
 
 <ng-template #loading>
